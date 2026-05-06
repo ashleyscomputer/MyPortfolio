@@ -5,9 +5,9 @@ type AnimatedRoleTextProps = {
   roles: string[];
 };
 
-const TYPING_SPEED = 48;
-const DELETING_SPEED = 26;
-const HOLD_TIME = 1200;
+const TYPING_SPEED = 85;
+const DELETING_SPEED = 48;
+const HOLD_TIME = 2400;
 
 const AnimatedRoleText = ({ roles }: AnimatedRoleTextProps) => {
   const shouldReduceMotion = useReducedMotion();

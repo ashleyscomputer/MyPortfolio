@@ -5,7 +5,13 @@ import AnimatedRoleText from "./AnimatedRoleText";
 import heroImage from "@/assets/ashley-hero.jpg";
 import { cardReveal, revealUp, staggerContainer } from "@/lib/animations";
 
-const roles = ["Data & AI Enthusiast", "Ethical Hacker", "Linux Enjoyer", "Problem Solver"];
+const roles = [
+  "Cybersecurity",
+  "Networking",
+  "Full-Stack Web Development",
+  "Data Analysis & Machine Learning",
+  "Research Data Support",
+];
 
 const Hero = () => {
   const scrollToProjects = () => {
