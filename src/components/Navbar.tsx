@@ -9,6 +9,7 @@ const Navbar = () => {
     { label: "Home", href: "#hero" },
     { label: "Skills", href: "#skills" },
     { label: "Projects", href: "#projects" },
+    { label: "Achievements", href: "#achievements" },
     { label: "Experience", href: "#experience" },
     { label: "Contact", href: "#contact" },
   ];
@@ -20,14 +21,17 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 w-full bg-background/80 backdrop-blur-lg border-b border-border z-50">
+    <nav className="fixed top-0 z-50 w-full border-b border-white/10 bg-background/70 shadow-[0_10px_35px_rgba(0,0,0,0.22)] backdrop-blur-xl">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <button
             onClick={() => scrollToSection("#hero")}
-            className="text-xl font-bold text-foreground hover:text-primary transition-colors"
+            className="group text-left text-lg font-bold text-foreground transition-colors hover:text-primary md:text-xl"
           >
-            Ashley van Rooyen
+            <span className="aurora-text">Ashley Van Rooyen</span>
+            <span className="block text-[10px] font-medium uppercase tracking-[0.25em] text-muted-foreground group-hover:text-cyan-200">
+              Cybersecurity • Data • Development
+            </span>
           </button>
 
           {/* Desktop Navigation */}
@@ -36,13 +40,13 @@ const Navbar = () => {
               <button
                 key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className="text-muted-foreground hover:text-primary transition-colors"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-cyan-200"
               >
                 {item.label}
               </button>
             ))}
-            <a href="/Ashley_Van_Rooyen_CV.docx" download>
-              <Button variant="default" size="sm">
+            <a href="/Ashley-Van-Rooyen-CV-2025.pdf" download>
+              <Button variant="default" size="sm" className="rounded-full shadow-[0_0_24px_rgba(34,211,238,0.25)]">
                 Download CV
               </Button>
             </a>
@@ -64,13 +68,13 @@ const Navbar = () => {
               <button
                 key={item.href}
                 onClick={() => scrollToSection(item.href)}
-                className="text-left text-muted-foreground hover:text-primary transition-colors py-2"
+                className="py-2 text-left text-muted-foreground transition-colors hover:text-cyan-200"
               >
                 {item.label}
               </button>
             ))}
-            <a href="/Ashley_Van_Rooyen_CV.docx" download>
-              <Button variant="default" className="w-full">
+            <a href="/Ashley-Van-Rooyen-CV-2025.pdf" download>
+              <Button variant="default" className="w-full rounded-full">
                 Download CV
               </Button>
             </a>

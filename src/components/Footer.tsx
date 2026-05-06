@@ -4,38 +4,37 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-card border-t border-border py-8">
+    <footer className="relative z-10 border-t border-white/10 bg-background/80 py-8 backdrop-blur-xl">
       <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-muted-foreground text-sm">
-            © {currentYear} Ashley van Rooyen. All rights reserved.
-          </p>
+        <div className="flex flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left">
+          <div>
+            <p className="text-sm text-muted-foreground">&copy; {currentYear} Ashley Van Rooyen. All rights reserved.</p>
+            <p className="mt-1 text-xs text-muted-foreground/80">
+              Built with React, caffeine, and suspicious confidence.
+            </p>
+          </div>
 
-          <div className="flex gap-6">
+          <div className="flex gap-4">
             <a
               href="https://www.linkedin.com/in/ashleyvanrooyen"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="social-icon"
               aria-label="LinkedIn"
             >
-              <Linkedin className="w-5 h-5" />
+              <Linkedin className="h-5 w-5" />
             </a>
             <a
-              href="https://github.com/ashleyvanrooyen"
+              href="https://github.com/ashleyscomputer"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-primary transition-colors"
+              className="social-icon"
               aria-label="GitHub"
             >
-              <Github className="w-5 h-5" />
+              <Github className="h-5 w-5" />
             </a>
-            <a
-              href="mailto:ashley@example.com"
-              className="text-muted-foreground hover:text-primary transition-colors"
-              aria-label="Email"
-            >
-              <Mail className="w-5 h-5" />
+            <a href="mailto:ashleyvrfx@gmail.com" className="social-icon" aria-label="Email">
+              <Mail className="h-5 w-5" />
             </a>
           </div>
         </div>

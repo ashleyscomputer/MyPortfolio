@@ -7,7 +7,7 @@ export type Certification = {
 
 export const certifications: Certification[] = [
   {
-    title: "Huawei HCIA (Datacom)",
+    title: "Huawei HCIA-Datacom",
     issuer: "Huawei",
     year: "2024",
     description: "Certified in networking fundamentals, routing and switching, and network security principles.",
