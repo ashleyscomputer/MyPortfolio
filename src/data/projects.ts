@@ -76,7 +76,7 @@ export const projects: Project[] = [
       "Explains decisions with reason codes to support transparent review",
     ],
     proofPoints: [
-      "GitHub repo: ashleyscomputer/dataquest-credit-risk",
+      "Featured inside Ashley's MyPortfolio project showcase",
       "Built as a DataQuest 2026 interpretable credit-risk Streamlit app",
       "Combines Pandas cleaning, Scikit-learn modelling, and Plotly visuals",
       "Designed around explainability, not black-box scoring",
@@ -85,9 +85,7 @@ export const projects: Project[] = [
       "Makes a technical machine learning workflow readable enough for loan risk review, portfolio analysis, and decision support.",
     coverImage: "/assets/project-covers/dataquest-cover.png",
     coverLabel: "Recent DataQuest app",
-    links: {
-      repo: "https://github.com/ashleyscomputer/dataquest-credit-risk",
-    },
+    links: {},
     images: ["/assets/DataQuest.png"],
   },
   {
