@@ -33,13 +33,6 @@ export const achievements: Achievement[] = [
     image: "/assets/DirisaHackathon.jpg",
   },
   {
-    title: "DIRISA Datathon Qualifying Stage Winner",
-    subtitle: "1st Place Qualifying Stage",
-    description:
-      "Placed first during the DIRISA Datathon qualifying stages before progressing to the national challenge.",
-    tags: ["Data Science", "Analytics", "Competition", "Machine Learning"],
-  },
-  {
     title: "IT Systems Support NQF 5 Completed",
     subtitle: "SpecCon Holdings",
     description:

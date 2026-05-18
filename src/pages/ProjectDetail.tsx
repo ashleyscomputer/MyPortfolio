@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { ArrowLeft, CheckCircle, DatabaseZap, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, CheckCircle, DatabaseZap, ExternalLink, Github, ShieldCheck, Sparkles, Target } from "lucide-react";
 import { motion } from "framer-motion";
 import { projects } from "@/data/projects";
 import { Button } from "@/components/ui/button";
@@ -30,9 +31,12 @@ const resolveProjectImage = (image?: string) => {
 
 const isRealLink = (href?: string) => Boolean(href && href !== "#");
 
+type DetailTab = "innovation" | "security" | "proof";
+
 const ProjectDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState<DetailTab>("innovation");
   const project = projects.find((item) => item.slug === slug);
 
   if (!project) {
@@ -47,9 +51,34 @@ const ProjectDetail = () => {
     );
   }
 
-  const imageSrc = resolveProjectImage(project.images[0]);
+  const imageSrc = resolveProjectImage(project.coverImage ?? project.images[0]);
   const realLiveLink = isRealLink(project.links.live) ? project.links.live : undefined;
   const realRepoLink = isRealLink(project.links.repo) ? project.links.repo : undefined;
+  const detailTabs = [
+    {
+      id: "innovation" as const,
+      label: "Innovation",
+      icon: Sparkles,
+      items: project.innovation ?? project.highlights,
+      accent: "cyan",
+    },
+    {
+      id: "security" as const,
+      label: "Security",
+      icon: ShieldCheck,
+      items: project.security ?? [],
+      accent: "lime",
+    },
+    {
+      id: "proof" as const,
+      label: "Build Notes",
+      icon: Target,
+      items: project.proofPoints ?? project.highlights,
+      accent: "fuchsia",
+    },
+  ].filter((tab) => tab.items.length > 0);
+  const activePanel = detailTabs.find((tab) => tab.id === activeTab) ?? detailTabs[0];
+  const galleryImages = project.coverImage ? project.images : project.images.slice(1);
 
   return (
     <div className="min-h-screen bg-background">
@@ -91,12 +120,22 @@ const ProjectDetail = () => {
                 <Badge variant="outline" className="border-cyan-300/30 bg-cyan-300/10 text-cyan-100">
                   {project.category}
                 </Badge>
+                {project.coverLabel && (
+                  <Badge variant="outline" className="border-white/15 bg-white/5 text-foreground/85">
+                    {project.coverLabel}
+                  </Badge>
+                )}
                 <span className="text-muted-foreground">{project.year}</span>
                 <span className="text-muted-foreground">/</span>
                 <span className="text-muted-foreground">{project.role}</span>
               </div>
               <h1 className="text-balance text-4xl font-black md:text-6xl">{project.title}</h1>
               <p className="text-xl leading-8 text-muted-foreground">{project.summary}</p>
+              {project.impact && (
+                <p className="rounded-2xl border border-cyan-300/20 bg-cyan-300/[0.08] p-4 leading-7 text-cyan-50/90">
+                  {project.impact}
+                </p>
+              )}
 
               <div className="flex flex-wrap gap-3 pt-2">
                 {realLiveLink && (
@@ -138,6 +177,54 @@ const ProjectDetail = () => {
               <p className="leading-8 text-muted-foreground">{project.description}</p>
             </motion.div>
 
+            {activePanel && (
+              <motion.div variants={cardReveal}>
+                <Card className="glass-panel overflow-hidden rounded-2xl">
+                  <CardContent className="space-y-5 p-6">
+                    <div className="flex flex-wrap gap-2">
+                      {detailTabs.map((tab) => {
+                        const Icon = tab.icon;
+                        const isActive = activePanel.id === tab.id;
+
+                        return (
+                          <button
+                            key={tab.id}
+                            type="button"
+                            onClick={() => setActiveTab(tab.id)}
+                            className={`inline-flex min-h-10 items-center gap-2 rounded-full border px-4 text-sm font-bold transition ${
+                              isActive
+                                ? tab.accent === "lime"
+                                  ? "border-lime-300/40 bg-lime-300/15 text-lime-100 shadow-[0_0_24px_rgba(190,242,100,0.1)]"
+                                  : tab.accent === "fuchsia"
+                                    ? "border-fuchsia-300/40 bg-fuchsia-300/15 text-fuchsia-100 shadow-[0_0_24px_rgba(217,70,239,0.1)]"
+                                    : "border-cyan-300/40 bg-cyan-300/15 text-cyan-100 shadow-[0_0_24px_rgba(34,211,238,0.1)]"
+                                : "border-white/10 bg-white/5 text-muted-foreground hover:border-cyan-300/25 hover:text-cyan-100"
+                            }`}
+                            aria-pressed={isActive}
+                          >
+                            <Icon className="h-4 w-4" />
+                            {tab.label}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    <div className="grid gap-3 md:grid-cols-2">
+                      {activePanel.items.map((item) => (
+                        <div
+                          key={item}
+                          className="rounded-2xl border border-white/10 bg-white/[0.035] p-4 leading-7 text-foreground/90"
+                        >
+                          <div className="mb-3 h-1 w-10 rounded-full bg-cyan-300 shadow-[0_0_18px_rgba(34,211,238,0.65)]" />
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
             <motion.div variants={revealUp} className="space-y-4">
               <h2 className="text-2xl font-bold">Key Features & Achievements</h2>
               <ul className="space-y-3">
@@ -150,11 +237,11 @@ const ProjectDetail = () => {
               </ul>
             </motion.div>
 
-            {project.images.length > 1 && (
+            {galleryImages.length > 0 && (
               <motion.div variants={revealUp} className="space-y-4">
-                <h2 className="text-2xl font-bold">Gallery</h2>
+                <h2 className="text-2xl font-bold">Project Screens</h2>
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                  {project.images.slice(1).map((img, index) => {
+                  {galleryImages.map((img, index) => {
                     const galleryImage = resolveProjectImage(img);
 
                     if (!galleryImage) {
