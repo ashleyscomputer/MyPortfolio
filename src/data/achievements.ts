@@ -5,9 +5,21 @@ export type Achievement = {
   description: string;
   tags: string[];
   image?: string;
+  imageAlt?: string;
+  imageFit?: "cover" | "contain";
 };
 
 export const achievements: Achievement[] = [
+  {
+    title: "Honourable Mention",
+    subtitle: "FNB DataQuest 2026 – Credit Risk Modelling Challenge",
+    description:
+      "Received an Honourable Mention for developing an interpretable credit-risk modelling workflow using Weight of Evidence, Information Value, and Logistic Regression, with the champion model achieving an AUC of 0.80555.",
+    tags: ["FNB DataQuest", "Credit Risk", "WoE & IV", "Logistic Regression", "Model Interpretability", "Streamlit"],
+    image: "/assets/FnbDataQuestHonourableMention.jpg",
+    imageAlt: "FNB DataQuest 2026 Special Mention award featuring Ashley van Rooyen and teammates",
+    imageFit: "contain",
+  },
   {
     title: "Regional Winner",
     subtitle: "Security Summit 2025 Hackathon #SSHack25",

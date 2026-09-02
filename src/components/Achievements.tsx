@@ -37,8 +37,10 @@ const Achievements = () => {
                       <div className="relative aspect-[16/9] overflow-hidden border-b border-white/10 bg-muted">
                         <img
                           src={achievement.image}
-                          alt={`${achievement.subtitle} team photo`}
-                          className="h-full w-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105"
+                          alt={achievement.imageAlt ?? `${achievement.subtitle} team photo`}
+                          className={`h-full w-full opacity-90 transition-transform duration-500 group-hover:scale-105 ${
+                            achievement.imageFit === "contain" ? "object-contain p-2" : "object-cover"
+                          }`}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
                       </div>

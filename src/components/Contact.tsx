@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Download, Github, Linkedin, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Download, Github, Linkedin, Mail, MapPin, MessageCircle, Phone, ShieldCheck } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { cardReveal, revealUp, staggerContainer, viewportOnce } from "@/lib/animations";
@@ -22,6 +22,12 @@ const contactItems = [
     value: "@ashleyscomputer",
     href: "https://github.com/ashleyscomputer",
     icon: Github,
+  },
+  {
+    label: "TryHackMe",
+    value: "@ashleyloveslinux",
+    href: "https://tryhackme.com/p/ashleyloveslinux",
+    icon: ShieldCheck,
   },
   {
     label: "WhatsApp",
