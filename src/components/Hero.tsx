@@ -1,17 +1,8 @@
 import { ArrowDown, Download, Github, Linkedin, Mail, ShieldCheck, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
-import AnimatedRoleText from "./AnimatedRoleText";
 import heroImage from "@/assets/ashley-hero.jpg";
 import { cardReveal, revealUp, staggerContainer } from "@/lib/animations";
-
-const roles = [
-  "Cybersecurity",
-  "Networking",
-  "Full-Stack Web Development",
-  "Data Analysis & Machine Learning",
-  "Research Data Support",
-];
 
 const Hero = () => {
   const scrollToProjects = () => {
@@ -48,10 +39,10 @@ const Hero = () => {
                 Ashley Van Rooyen
               </h1>
               <p className="text-balance text-xl font-semibold text-cyan-100 md:text-2xl">
-                Aspiring Ethical Hacker | ICT Student | Full-Stack Developer
+                ICT Student | Full-Stack Developer | Data & AI Enthusiast
               </p>
-              <p className="min-h-[2.6rem] text-2xl font-bold md:text-3xl">
-                <AnimatedRoleText roles={roles} />
+              <p className="text-balance text-xl font-bold text-cyan-200 md:text-2xl">
+                Aspiring Penetration Tester & Cybersecurity Enthusiast
               </p>
             </motion.div>
 
