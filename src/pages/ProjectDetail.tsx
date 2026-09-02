@@ -44,7 +44,7 @@ const ProjectDetail = () => {
       <div className="flex min-h-screen items-center justify-center bg-background px-6">
         <div className="glass-panel max-w-md rounded-2xl p-8 text-center">
           <h1 className="mb-4 text-4xl font-bold">Project Not Found</h1>
-          <p className="mb-6 text-muted-foreground">That route exists spiritually, but not in the project data.</p>
+          <p className="mb-6 text-muted-foreground">No project matches this route.</p>
           <Button onClick={() => navigate("/")}>Back to Home</Button>
         </div>
       </div>
@@ -57,7 +57,7 @@ const ProjectDetail = () => {
   const detailTabs = [
     {
       id: "innovation" as const,
-      label: "Innovation",
+      label: "Engineering",
       icon: Sparkles,
       items: project.innovation ?? project.highlights,
       accent: "cyan",
@@ -71,7 +71,7 @@ const ProjectDetail = () => {
     },
     {
       id: "proof" as const,
-      label: "Build Notes",
+      label: "Evidence",
       icon: Target,
       items: project.proofPoints ?? project.highlights,
       accent: "fuchsia",
@@ -254,6 +254,8 @@ const ProjectDetail = () => {
                         src={galleryImage}
                         alt={`${project.title} screenshot ${index + 1}`}
                         className="w-full rounded-2xl border border-white/10"
+                        loading="lazy"
+                        decoding="async"
                       />
                     );
                   })}

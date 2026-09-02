@@ -10,7 +10,6 @@ import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CyberBackground from "@/components/CyberBackground";
-import CyberTerminal from "@/components/CyberTerminal";
 
 const Index = () => {
   return (
@@ -19,15 +18,14 @@ const Index = () => {
       <Navbar />
       <main className="relative z-10">
         <Hero />
-        <Skills />
         <About />
+        <Skills />
         <Projects />
+        <Experience />
         <Achievements />
         <HackathonRecap />
-        <Experience />
         <Certifications />
         <Contact />
-        <CyberTerminal />
       </main>
       <Footer />
     </div>

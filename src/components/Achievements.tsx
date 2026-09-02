@@ -1,11 +1,9 @@
 import { motion } from "framer-motion";
-import { Award, MapPin, Medal, Trophy } from "lucide-react";
+import { Award, MapPin } from "lucide-react";
 import { achievements } from "@/data/achievements";
 import { Badge } from "./ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { cardReveal, revealUp, staggerContainer, viewportOnce } from "@/lib/animations";
-
-const rankIcons = [Trophy, Medal, Award, Award];
 
 const Achievements = () => {
   return (
@@ -19,17 +17,15 @@ const Achievements = () => {
           className="space-y-12"
         >
           <motion.div variants={revealUp} className="mx-auto max-w-3xl text-center">
-            <p className="section-kicker">Wins & Signals</p>
-            <h2 className="text-4xl font-black md:text-5xl">Achievements & Hackathons</h2>
+            <p className="section-kicker">Recognition</p>
+            <h2 className="text-4xl font-black md:text-5xl">Awards & Technical Competitions</h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Competitive proof, practical teamwork, and data/security work done outside the comfort zone.
+              Assessed outcomes from cybersecurity, data science, and systems-support programmes.
             </p>
           </motion.div>
 
           <motion.div variants={staggerContainer} className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-            {achievements.map((achievement, index) => {
-              const Icon = rankIcons[index] ?? Award;
-
+            {achievements.map((achievement) => {
               return (
                 <motion.div key={achievement.title} variants={cardReveal} whileHover={{ y: -6 }}>
                   <Card className="glass-panel group h-full overflow-hidden rounded-2xl transition-all duration-300 hover:border-fuchsia-300/40 hover:shadow-[0_0_42px_rgba(217,70,239,0.14)]">
@@ -41,6 +37,8 @@ const Achievements = () => {
                           className={`h-full w-full opacity-90 transition-transform duration-500 group-hover:scale-105 ${
                             achievement.imageFit === "contain" ? "object-contain p-2" : "object-cover"
                           }`}
+                          loading="lazy"
+                          decoding="async"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
                       </div>
@@ -49,11 +47,8 @@ const Achievements = () => {
                     <CardHeader className="space-y-4">
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-amber-200/30 bg-amber-200/10 text-amber-100 shadow-[0_0_24px_rgba(251,191,36,0.18)]">
-                          <Icon className="h-6 w-6" />
+                          <Award className="h-6 w-6" />
                         </div>
-                        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-muted-foreground">
-                          #{index + 1}
-                        </span>
                       </div>
                       <div>
                         <CardTitle className="text-2xl leading-tight">{achievement.title}</CardTitle>
