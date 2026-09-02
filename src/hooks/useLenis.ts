@@ -10,10 +10,9 @@ export const useLenis = () => {
     }
 
     const lenis = new Lenis({
-      lerp: 0.11,
+      duration: 1.05,
+      lerp: 0.08,
       smoothWheel: true,
-      wheelMultiplier: 0.9,
-      touchMultiplier: 1.05,
     });
 
     let rafId = 0;

@@ -9,7 +9,9 @@ const Footer = () => {
         <div className="flex flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left">
           <div>
             <p className="text-sm text-muted-foreground">&copy; {currentYear} Ashley Van Rooyen. All rights reserved.</p>
-            <p className="mt-1 text-xs text-muted-foreground/80">React / TypeScript / Vite / Tailwind CSS</p>
+            <p className="mt-1 text-xs text-muted-foreground/80">
+              Built with React, caffeine, and suspicious confidence.
+            </p>
           </div>
 
           <div className="flex gap-4">

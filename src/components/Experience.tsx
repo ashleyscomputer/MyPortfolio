@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Briefcase, CheckCircle, Database, FileText, GraduationCap, ServerCog } from "lucide-react";
+import { Briefcase, CheckCircle, Database, ExternalLink, GraduationCap, ServerCog } from "lucide-react";
 import { experiences } from "@/data/experience";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Button } from "./ui/button";
@@ -27,7 +27,7 @@ const Experience = () => {
             <p className="section-kicker">Experience</p>
             <h2 className="text-4xl font-black md:text-5xl">Professional Timeline</h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Applied experience across research data operations, systems support, software development, and field data quality.
+              A practical path through research data, IT support, field operations, software, and people-facing work.
             </p>
           </motion.div>
 
@@ -64,8 +64,6 @@ const Experience = () => {
                             src={exp.image}
                             alt={`${exp.title} team and research work`}
                             className="h-full w-full object-cover opacity-90"
-                            loading="lazy"
-                            decoding="async"
                           />
                         </div>
                       )}
@@ -95,7 +93,7 @@ const Experience = () => {
                         {exp.link && (
                           <Button variant="outline" size="sm" className="rounded-full border-white/15 bg-white/5" asChild>
                             <a href={exp.link.href} target="_blank" rel="noopener noreferrer">
-                              <FileText className="h-3.5 w-3.5" />
+                              <ExternalLink className="h-3.5 w-3.5" />
                               {exp.link.label}
                             </a>
                           </Button>

@@ -50,7 +50,7 @@ const Contact = () => {
         >
           <motion.div variants={revealUp} className="mx-auto max-w-3xl text-center">
             <p className="section-kicker">Contact</p>
-            <h2 className="text-4xl font-black md:text-5xl">Contact</h2>
+            <h2 className="text-4xl font-black md:text-5xl">Let's Connect</h2>
             <p className="mt-4 text-lg text-muted-foreground">
               Open to junior cybersecurity, data, software development, and IT support opportunities.
             </p>
@@ -65,9 +65,9 @@ const Contact = () => {
                       <MessageCircle className="h-6 w-6" />
                     </div>
                     <div>
-                      <h3 className="text-2xl font-bold">Open to technical opportunities</h3>
+                      <h3 className="text-2xl font-bold">Available for useful work.</h3>
                       <p className="mt-3 leading-7 text-muted-foreground">
-                        Junior roles across cybersecurity, data, software engineering, and IT systems support.
+                        Junior cybersecurity, data, software development, IT support, and technical teams that value curiosity.
                       </p>
                     </div>
                   </div>
@@ -76,7 +76,7 @@ const Contact = () => {
                     <MapPin className="h-5 w-5 shrink-0 text-fuchsia-200" />
                     <div>
                       <p className="font-semibold">Kimberley, South Africa</p>
-                      <p className="text-sm text-muted-foreground">Available for onsite and remote roles.</p>
+                      <p className="text-sm text-muted-foreground">Remote-friendly, opportunity-ready.</p>
                     </div>
                   </div>
 

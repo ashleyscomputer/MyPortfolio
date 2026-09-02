@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { Code2, Database, ShieldCheck } from "lucide-react";
+import { Code2, Database, ShieldCheck, Sparkles } from "lucide-react";
+import { Badge } from "./ui/badge";
 import { cardReveal, revealUp, staggerContainer, viewportOnce } from "@/lib/animations";
 
 const focusAreas = [
-  { label: "Application Security", icon: ShieldCheck },
-  { label: "Full-Stack Engineering", icon: Code2 },
-  { label: "Data & Machine Learning", icon: Database },
+  { label: "Cybersecurity", icon: ShieldCheck },
+  { label: "Full-stack apps", icon: Code2 },
+  { label: "Data-driven systems", icon: Database },
 ];
 
 const About = () => {
@@ -25,21 +26,19 @@ const About = () => {
               src="/assets/Me2.jpeg"
               alt="Ashley Van Rooyen in a casual professional setting"
               className="relative aspect-[4/5] w-full rounded-xl object-cover"
-              loading="lazy"
-              decoding="async"
             />
           </motion.div>
 
           <motion.div variants={staggerContainer} className="space-y-7">
             <motion.div variants={revealUp}>
               <p className="section-kicker">About Me</p>
-              <h2 className="text-balance text-4xl font-black md:text-5xl">Engineering practical, secure systems.</h2>
+              <h2 className="text-balance text-4xl font-black md:text-5xl">Practical builder, security-minded learner.</h2>
             </motion.div>
 
             <motion.p variants={revealUp} className="text-lg leading-8 text-muted-foreground">
-              I am an ICT student at Sol Plaatje University focused on full-stack development, cybersecurity, and
-              data-intensive systems. My work spans React and Django applications, Android development, interpretable
-              machine learning, network troubleshooting, and structured research data workflows.
+              I’m an ICT student at Sol Plaatje University with a strong interest in cybersecurity, full-stack
+              development, and data-driven solutions. I enjoy building practical systems, exploring ethical hacking,
+              and turning technical ideas into polished user experiences.
             </motion.p>
 
             <motion.div variants={staggerContainer} className="grid gap-3 sm:grid-cols-3">
@@ -55,9 +54,18 @@ const About = () => {
               })}
             </motion.div>
 
-            <motion.p variants={revealUp} className="font-mono text-sm text-cyan-100/80">
-              Kimberley, South Africa / Available for junior technical roles
-            </motion.p>
+            <motion.div variants={revealUp} className="flex flex-wrap gap-2">
+              <Badge variant="secondary" className="skill-badge">
+                Immediately Available
+              </Badge>
+              <Badge variant="secondary" className="skill-badge">
+                Kimberley & Remote
+              </Badge>
+              <Badge variant="secondary" className="skill-badge">
+                <Sparkles className="mr-1 h-3.5 w-3.5" />
+                Polished over perfect
+              </Badge>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>

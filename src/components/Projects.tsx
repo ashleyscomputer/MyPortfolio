@@ -1,6 +1,6 @@
-import { useMemo, useState } from "react";
-import { motion } from "framer-motion";
-import { BrainCircuit, DatabaseZap, ExternalLink, FileText, Github, Search } from "lucide-react";
+import { useMemo, useState, type MouseEvent } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { BrainCircuit, DatabaseZap, ExternalLink, FileText, Github, Search, ShieldCheck, Sparkles } from "lucide-react";
 import { projects, type Project } from "@/data/projects";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
@@ -37,14 +37,36 @@ const isRealLink = (href?: string) => Boolean(href && href !== "#");
 
 const ProjectCard = ({ project }: { project: Project }) => {
   const navigate = useNavigate();
+  const [insightMode, setInsightMode] = useState<"innovation" | "security">("innovation");
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+  const rotateX = useSpring(useTransform(mouseY, [0, 1], [7, -7]), { stiffness: 220, damping: 24 });
+  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-7, 7]), { stiffness: 220, damping: 24 });
   const imageSrc = resolveProjectImage(project.coverImage ?? project.images[0]);
   const realLiveLink = isRealLink(project.links.live) ? project.links.live : undefined;
   const realRepoLink = isRealLink(project.links.repo) ? project.links.repo : undefined;
+  const innovationItems = project.innovation ?? [];
+  const securityItems = project.security ?? [];
+  const activeInsights = insightMode === "security" ? securityItems : innovationItems;
+
+  const handleMouseMove = (event: MouseEvent<HTMLElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    mouseX.set((event.clientX - rect.left) / rect.width);
+    mouseY.set((event.clientY - rect.top) / rect.height);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0.5);
+    mouseY.set(0.5);
+  };
 
   return (
     <motion.article
       variants={cardReveal}
-      whileHover={{ y: -5 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      whileHover={{ y: -8 }}
       className="project-card group flex h-full flex-col overflow-hidden rounded-2xl"
     >
       {imageSrc ? (
@@ -53,8 +75,6 @@ const ProjectCard = ({ project }: { project: Project }) => {
             src={imageSrc}
             alt={`${project.title} preview`}
             className="h-full w-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
-            decoding="async"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-transparent to-transparent" />
           <div className="absolute left-4 top-4 flex flex-wrap gap-2">
@@ -62,6 +82,11 @@ const ProjectCard = ({ project }: { project: Project }) => {
               {project.coverLabel ?? project.category}
             </Badge>
           </div>
+          {project.impact && (
+            <div className="absolute bottom-4 left-4 right-4 hidden rounded-2xl border border-white/10 bg-background/65 p-3 text-xs leading-5 text-foreground/85 shadow-[0_0_30px_rgba(34,211,238,0.12)] backdrop-blur md:block">
+              {project.impact}
+            </div>
+          )}
         </div>
       ) : (
         <div className="relative aspect-video overflow-hidden border-b border-white/10 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.22),transparent_30%),linear-gradient(135deg,rgba(168,85,247,0.16),rgba(15,23,42,0.9))]">
@@ -86,10 +111,18 @@ const ProjectCard = ({ project }: { project: Project }) => {
         </div>
 
         <div className="flex flex-wrap gap-2">
-          {project.tech.slice(0, 5).map((tech) => (
-            <Badge key={tech} variant="secondary" className="skill-badge">
-              {tech}
-            </Badge>
+          {project.tech.slice(0, 5).map((tech, index) => (
+            <motion.span
+              key={tech}
+              initial={{ opacity: 0, y: 6 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.03 }}
+            >
+              <Badge variant="secondary" className="skill-badge">
+                {tech}
+              </Badge>
+            </motion.span>
           ))}
           {project.tech.length > 5 && (
             <Badge variant="secondary" className="skill-badge">
@@ -97,6 +130,47 @@ const ProjectCard = ({ project }: { project: Project }) => {
             </Badge>
           )}
         </div>
+
+        {(innovationItems.length > 0 || securityItems.length > 0) && (
+          <div className="rounded-2xl border border-white/10 bg-white/[0.035] p-3">
+            <div className="mb-3 grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setInsightMode("innovation")}
+                className={`inline-flex min-h-9 items-center justify-center gap-1.5 rounded-full border px-3 text-xs font-bold transition ${
+                  insightMode === "innovation"
+                    ? "border-cyan-300/40 bg-cyan-300/15 text-cyan-100"
+                    : "border-white/10 bg-white/5 text-muted-foreground hover:border-cyan-300/25 hover:text-cyan-100"
+                }`}
+                aria-pressed={insightMode === "innovation"}
+              >
+                <Sparkles className="h-3.5 w-3.5" />
+                Innovation
+              </button>
+              <button
+                type="button"
+                onClick={() => setInsightMode("security")}
+                className={`inline-flex min-h-9 items-center justify-center gap-1.5 rounded-full border px-3 text-xs font-bold transition ${
+                  insightMode === "security"
+                    ? "border-lime-300/40 bg-lime-300/15 text-lime-100"
+                    : "border-white/10 bg-white/5 text-muted-foreground hover:border-lime-300/25 hover:text-lime-100"
+                }`}
+                aria-pressed={insightMode === "security"}
+              >
+                <ShieldCheck className="h-3.5 w-3.5" />
+                Security
+              </button>
+            </div>
+            <ul className="space-y-2">
+              {activeInsights.slice(0, 2).map((item) => (
+                <li key={item} className="flex gap-2 text-xs leading-5 text-muted-foreground">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-300 shadow-[0_0_12px_rgba(34,211,238,0.8)]" />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div className="mt-auto flex flex-wrap gap-2 pt-2">
           <Button size="sm" className="rounded-full" onClick={() => navigate(`/project/${project.slug}`)}>
@@ -172,7 +246,7 @@ const Projects = () => {
             <p className="section-kicker">Featured Work</p>
             <h2 className="text-4xl font-black md:text-5xl">Featured Projects</h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              Selected systems with documented architecture, implementation details, and security considerations.
+              Real apps, data dashboards, student systems, and security-minded builds with practical outcomes.
             </p>
           </motion.div>
 
@@ -182,7 +256,7 @@ const Projects = () => {
                 <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   type="text"
-                  placeholder="Search by project, stack, or domain"
+                  placeholder="Search projects by name, tech, category, or keyword..."
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
                   className="h-12 rounded-full border-white/10 bg-white/5 pl-10"
@@ -215,7 +289,7 @@ const Projects = () => {
           {filteredProjects.length === 0 && (
             <motion.div variants={revealUp} className="py-12 text-center">
               <p className="text-lg text-muted-foreground">
-                No projects match the current search and filter.
+                No projects found. The search query is innocent until proven typo.
               </p>
             </motion.div>
           )}
